@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UTM URL Statistics</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=50&h=50&fit=crop"
+            class="rounded-circle me-2"
+            alt="Logo"
+            width="30"
+          />
+          METU Analytics
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100"
+                class="mb-3"
+                alt="Clicks Icon"
+              />
+              <h5 class="card-title">Total Clicks</h5>
+              <h2 class="text-primary">15,234</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <img
+                src="https://images.unsplash.com/photo-1560472355-536de3962603?w=100"
+                class="mb-3"
+                alt="Conversions Icon"
+              />
+              <h5 class="card-title">Total Conversions</h5>
+              <h2 class="text-success">3,845</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100"
+                class="mb-3"
+                alt="Rate Icon"
+              />
+              <h5 class="card-title">Conversion Rate</h5>
+              <h2 class="text-info">25.2%</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Clicks per UTM Source</h5>
+              <canvas id="sourceChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Conversion Rate Trend</h5>
+              <canvas id="conversionChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Campaign Conversion Comparison</h5>
+              <div class="mb-3">
+                <select
+                  class="form-select me-2 d-inline-block w-auto"
+                  id="campaign1"
+                >
+                  <option value="Summer Sale">Summer Sale</option>
+                  <option value="Black Friday">Black Friday</option>
+                  <option value="Holiday Special">Holiday Special</option>
+                  <option value="Spring Collection">Spring Collection</option>
+                  <option value="Back to School">Back to School</option>
+                </select>
+                <span class="mx-2">vs</span>
+                <select
+                  class="form-select me-2 d-inline-block w-auto"
+                  id="campaign2"
+                >
+                  <option value="Black Friday">Black Friday</option>
+                  <option value="Summer Sale">Summer Sale</option>
+                  <option value="Holiday Special">Holiday Special</option>
+                  <option value="Spring Collection">Spring Collection</option>
+                  <option value="Back to School">Back to School</option>
+                </select>
+                <button class="btn btn-primary" onclick="compareCampaigns()">
+                  Compare
+                </button>
+              </div>
+              <canvas id="campaignChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-light mt-5 py-4">
+      <div class="container text-center">
+        <p>© 2024 UTM Analytics. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+      let campaignChart;
+      const campaignData = {
+        "Summer Sale": 32,
+        "Black Friday": 45,
+        "Holiday Special": 38,
+        "Spring Collection": 28,
+        "Back to School": 35,
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const ctx1 = document.getElementById("sourceChart").getContext("2d");
+        const ctx2 = document
+          .getElementById("conversionChart")
+          .getContext("2d");
+        const ctx3 = document.getElementById("campaignChart").getContext("2d");
+
+        new Chart(ctx1, {
+          type: "bar",
+          data: {
+            labels: ["Facebook", "Google", "Twitter", "LinkedIn", "Email"],
+            datasets: [
+              {
+                label: "Clicks",
+                data: [4500, 3200, 2800, 2400, 2300],
+                backgroundColor: [
+                  "#4267B2",
+                  "#DB4437",
+                  "#1DA1F2",
+                  "#0077B5",
+                  "#7289DA",
+                ],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+            },
+          },
+        });
+
+        new Chart(ctx2, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                label: "Conversion Rate %",
+                data: [22, 24, 27, 23, 25, 28],
+                borderColor: "#198754",
+                tension: 0.3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+            },
+          },
+        });
+
+        campaignChart = new Chart(ctx3, {
+          type: "bar",
+          data: {
+            labels: ["Campaign 1", "Campaign 2"],
+            datasets: [
+              {
+                label: "Conversion Rate %",
+                data: [32, 45],
+                backgroundColor: ["#20c997", "#6f42c1"],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Conversion Rate %",
+                },
+              },
+            },
+          },
+        });
+      });
+
+      function compareCampaigns() {
+        const campaign1 = document.getElementById("campaign1").value;
+        const campaign2 = document.getElementById("campaign2").value;
+
+        campaignChart.data.labels = [campaign1, campaign2];
+        campaignChart.data.datasets[0].data = [
+          campaignData[campaign1],
+          campaignData[campaign2],
+        ];
+        campaignChart.update();
+      }
+    </script>
+  </body>
+</html>
