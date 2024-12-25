@@ -12,8 +12,58 @@
       href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css"
       rel="stylesheet"
     />
+    <style>
+      body {
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      }
+      .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .footer {
+        background-color: #343a40;
+      }
+      .footer p {
+        margin: 0;
+      }
+      .btn-custom {
+        background: linear-gradient(45deg, #007bff, #00d4ff);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        border-radius: 50px;
+        padding: 10px 20px;
+      }
+      .btn-custom:hover {
+        background: linear-gradient(45deg, #0056b3, #008cff);
+        box-shadow: 0px 8px 15px rgba(0, 123, 255, 0.4);
+        transform: scale(1.1);
+      }
+      .btn-custom:focus {
+        outline: none;
+        box-shadow: 0px 0px 10px 4px rgba(0, 123, 255, 0.5);
+      }
+
+      .form-select {
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
+        transition: box-shadow 0.3s, border-color 0.3s;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .form-select:focus {
+        border-color: #00d4ff;
+        box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+        outline: none;
+      }
+    </style>
   </head>
-  <body class="bg-light">
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a class="navbar-brand" href="#">
@@ -31,7 +81,7 @@
     <div class="container mt-4">
       <div class="row g-4">
         <div class="col-md-4">
-          <div class="card shadow-sm">
+          <div class="card shadow border-primary">
             <div class="card-body text-center">
               <img
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100"
@@ -44,7 +94,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card shadow-sm">
+          <div class="card shadow border-success">
             <div class="card-body text-center">
               <img
                 src="https://images.unsplash.com/photo-1560472355-536de3962603?w=100"
@@ -57,7 +107,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card shadow-sm">
+          <div class="card shadow border-info">
             <div class="card-body text-center">
               <img
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100"
@@ -73,7 +123,7 @@
 
       <div class="row mt-4">
         <div class="col-md-6">
-          <div class="card shadow-sm">
+          <div class="card shadow">
             <div class="card-body">
               <h5 class="card-title">Clicks per UTM Source</h5>
               <canvas id="sourceChart"></canvas>
@@ -81,7 +131,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card shadow-sm">
+          <div class="card shadow">
             <div class="card-body">
               <h5 class="card-title">Conversion Rate Trend</h5>
               <canvas id="conversionChart"></canvas>
@@ -92,7 +142,7 @@
 
       <div class="row mt-4">
         <div class="col-12">
-          <div class="card shadow-sm">
+          <div class="card shadow">
             <div class="card-body">
               <h5 class="card-title">Campaign Conversion Comparison</h5>
               <div class="mb-3">
@@ -117,7 +167,7 @@
                   <option value="Spring Collection">Spring Collection</option>
                   <option value="Back to School">Back to School</option>
                 </select>
-                <button class="btn btn-primary" onclick="compareCampaigns()">
+                <button class="btn btn-custom" onclick="compareCampaigns()">
                   Compare
                 </button>
               </div>
@@ -128,7 +178,7 @@
       </div>
     </div>
 
-    <footer class="bg-dark text-light mt-5 py-4">
+    <footer class="footer text-light mt-5 py-4">
       <div class="container text-center">
         <p>© 2024 UTM Analytics. All rights reserved.</p>
       </div>
